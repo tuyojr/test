@@ -1,11 +1,12 @@
 locals {
-  inbound_ports = [80, 443, 22]
+  inbound_ports = [80, 443, 22, 8080]
 }
 
 resource "aws_security_group" "testPubSG" {
   name        = var.tags[3]
   description = "Allow TLS inbound traffic"
-  vpc_id      = aws_vpc.webVPC.id
+  vpc_id      = aws_vpc.testVPC.id
+  count = length(var.subnet_cidr_block)
 
   dynamic "ingress" {
     for_each = local.inbound_ports
@@ -13,8 +14,8 @@ resource "aws_security_group" "testPubSG" {
       from_port   = ingress.value
       to_port     = ingress.value
       protocol    = "tcp"
-      description = "Inbound traffic from the internet."
-      cidr_blocks = [var.cidr_block[1]]
+      description = "Inbound traffic from instances created."
+      cidr_blocks = [var.cidr_block[1], var.subnet_cidr_block[count.index]]
     }
   }
 
