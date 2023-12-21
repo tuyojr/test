@@ -19,8 +19,8 @@ resource "aws_iam_role" "s3_role" {
 data "aws_iam_policy_document" "policy" {
   statement {
     effect    = "Allow"
-    actions   = ["s3:Describe*"]
-    resources = ["*"]
+    actions   = ["s3:GetObject", "s3:PutObject"]
+    resources = ["${aws_s3_bucket.test_bucket.arn}"]
   }
 }
 
