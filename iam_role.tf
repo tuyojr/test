@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "s3_assume_role" {
 
 resource "aws_iam_role" "s3_role" {
   name               = var.role
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  assume_role_policy = data.aws_iam_policy_document.s3_assume_role.json
 }
 
 data "aws_iam_policy_document" "policy" {

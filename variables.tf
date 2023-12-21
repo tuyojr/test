@@ -69,3 +69,8 @@ variable "tag" {
   description = "Tags for subnets"
   default = ["testPrivSunet1", "testPubSunet1", "testPrivSunet2", "testPubSunet2", "testPrivSunet3", "testPubSunet3"]
 }
+
+variable "key_pair" {
+  type = string
+  description = "AWS Key Pair"
+}
